@@ -83,6 +83,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CaptureManager.cpp" />
     <ClCompile Include="DisplayManager.cpp" />
     <ClCompile Include="DuplicationManager.cpp" />
     <ClCompile Include="main.cpp" />
@@ -90,6 +91,7 @@
     <ClCompile Include="ThreadManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CaptureManager.h" />
     <ClInclude Include="CommonTypes.h" />
     <ClInclude Include="DisplayManager.h" />
     <ClInclude Include="DuplicationManager.h" />

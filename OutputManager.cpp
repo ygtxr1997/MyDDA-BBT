@@ -287,7 +287,7 @@ DUPL_RETURN OUTPUTMANAGER::CreateSharedSurf(INT SingleOutput, _Out_ UINT* OutCou
 //		3. →DrawMouse()
 //		4. 释放锁
 //		5. m_SwapChain->Present()
-DUPL_RETURN OUTPUTMANAGER::UpdateApplicationWindow(_In_ PTR_INFO* PointerInfo, _Inout_ bool* Occluded)
+DUPL_RETURN OUTPUTMANAGER::UpdateApplicationWindow(_In_ PTR_INFO* PointerInfo, _Inout_ bool* Occluded, BYTE** bitmapAlloc, UINT* bitmapSize, UINT* bitmapPitch)			/// ADD: bitmapAlloc, bitmapSize
 {
 	// 同步过程
 	HRESULT hr = m_KeyMutex->AcquireSync(1, 100);
@@ -338,6 +338,11 @@ DUPL_RETURN OUTPUTMANAGER::UpdateApplicationWindow(_In_ PTR_INFO* PointerInfo, _
 
 	DXGI_MAPPED_RECT MappedSurface;
 	hr = DxgiSurface->Map(&MappedSurface, DXGI_MAP_READ);
+
+	//ADD
+	*bitmapPitch = MappedSurface.Pitch;
+	*bitmapAlloc = MappedSurface.pBits;
+	*bitmapSize = CopyBufferDesc.Width * CopyBufferDesc.Height * 4;
 
 	hr = DxgiSurface->Unmap();
 	DxgiSurface->Release();
@@ -1000,3 +1005,5 @@ void OUTPUTMANAGER::CleanRefs()
 		m_Factory = nullptr;
 	}
 }
+
+
